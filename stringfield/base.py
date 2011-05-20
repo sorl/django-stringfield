@@ -1,13 +1,14 @@
 from django.db import models
+from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 
 
-class StringField(models.CharField):
+class StringField(models.Field):
     description = _("String")
 
     def __init__(self, *args, **kwargs):
         kwargs['max_length'] = kwargs.get('max_length', 255)
-        super(models.CharField, self).__init__(*args, **kwargs)
+        super(StringField, self).__init__(*args, **kwargs)
 
     def get_internal_type(self):
         return "TextField"
@@ -23,7 +24,7 @@ class StringField(models.CharField):
     def formfield(self, **kwargs):
         defaults = {'max_length': self.max_length}
         defaults.update(kwargs)
-        return super(CharField, self).formfield(**defaults)
+        return super(StringField, self).formfield(**defaults)
 
     def db_type(self, connection):
         if connection.vendor == 'postgresql':
