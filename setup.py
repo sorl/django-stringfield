@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-stringfield',
-    version='0.1',
+    version='0.1.1',
     description='Better string field for Django.',
     long_description=open('README.rst').read(),
     author='Mikko Hellsing',

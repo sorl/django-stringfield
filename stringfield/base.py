@@ -36,5 +36,6 @@ class StringField(models.CharField):
         from south.modelsinspector import introspector
         name = '%s.%s' % (self.__class__.__module__ , self.__class__.__name__)
         args, kwargs = introspector(self)
+        kwargs.pop('max_length', None)
         return name, args, kwargs
 
