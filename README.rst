@@ -33,7 +33,8 @@ key word argument ``max_length`` works a little differently:
 * It is optional and defaults to 255
 * It only enforces max length on the default formfield **not** on the database.
 
-Example usage::
+Example::
+
     # models.py
     from stringfield import StringField
 
