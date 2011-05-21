@@ -17,7 +17,7 @@ setup(
     author_email='mikko@aino.se',
     license='BSD',
     url='https://github.com/aino/django-stringfield',
-    packages=find_packages(exclude=['tests']),
+    packages=find_packages(exclude=['tests', 'tests.*']),
     zip_safe=False,
     classifiers=[
         'Development Status :: 3 - Alpha',
