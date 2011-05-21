@@ -6,7 +6,7 @@ from os.path import abspath, dirname, join as pjoin
 
 
 
-def runtests(test_labels, verbosity=1, interactive=True, failfast=True):
+def runtests(test_labels=None, verbosity=1, interactive=True, failfast=True):
     here = abspath(dirname(__file__))
     root = pjoin(here, os.pardir)
     sys.path.append(root)
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     failures = runtests(
-        args.test_labels,
+        test_labels=args.test_labels,
         verbosity=1,
         interactive=args.interactive,
         failfast=args.failfast
