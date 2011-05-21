@@ -7,7 +7,7 @@ class StringField(models.Field):
     description = _("String")
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = kwargs.get('max_length', 255)
+        kwargs['max_length'] = kwargs.get('max_length', 500)
         super(StringField, self).__init__(*args, **kwargs)
 
     def get_internal_type(self):
