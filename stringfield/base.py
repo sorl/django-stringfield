@@ -31,6 +31,8 @@ class StringField(models.Field):
             return 'character varying'
         if connection.vendor == 'mysql':
             return 'VARCHAR (65528)'
+        if connection.vendor == 'oracle':
+            return 'VARCHAR2 (4000)'
         return 'TEXT'
 
     def south_field_triple(self):

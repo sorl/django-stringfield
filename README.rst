@@ -2,17 +2,22 @@
 django-stringfield
 ==================
 
-A string field that tries not to enforce length on database level. Currently
-implemented as:
+A field intended for strings that has a length less than 500 characters.
+django-stringfield tries to not to enforce length on database level if possible
+but different databases have different limitations. Currently implemented as:
 
 PostgreSQL
     ``character varying``
 
 MySQL
     ``VARCHAR (65528)``
+
     MySQL >= 5.0.3 should be able to handle a maximum length of 65535 but that
     does not work in my empirical testing using mysql 5.1.41 where 65528 is the
     maximum considering ``NULL`` and ``NOT NULL``.
+
+Oracle
+    ``VARCHAR2 (4000)``
 
 SQLite & Other backends
     ``TEXT``
