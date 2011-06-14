@@ -10,7 +10,7 @@ class TestCommand(test):
 
 setup(
     name='django-stringfield',
-    version='0.1.4',
+    version='0.1.5',
     description='Better string field for Django.',
     long_description=open('README.rst').read(),
     author='Mikko Hellsing',
