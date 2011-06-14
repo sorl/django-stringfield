@@ -7,7 +7,7 @@ from django.test import TestCase
 from .models import Item
 
 
-ALIAS = ['default', 'postgresql', 'mysql']
+ALIAS = settings.DATABASES.keys()
 
 
 sqlite_sql = """CREATE TABLE "stringfield_tests_item" (
@@ -29,7 +29,12 @@ mysql_sql = """CREATE TABLE `stringfield_tests_item` (
 )
 ;"""
 
-ALIAS_SQL = dict(zip(ALIAS, [sqlite_sql, postgresql_sql, mysql_sql]))
+ALIAS_SQL = {}
+for j, sql in enumerate([sqlite_sql, postgresql_sql, mysql_sql]):
+    try:
+        ALIAS_SQL[ALIAS[j]] = sql
+    except IndexError:
+        break
 
 
 class SimpleTestCase(TestCase):
