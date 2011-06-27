@@ -8,7 +8,6 @@ class StringField(models.Field):
 
     def __init__(self, *args, **kwargs):
         kwargs.setdefault('max_length', 500)
-        kwargs.setdefault('blank', True)
         super(StringField, self).__init__(*args, **kwargs)
 
     def get_internal_type(self):
