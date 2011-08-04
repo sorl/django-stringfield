@@ -26,12 +26,18 @@ class StringField(models.Field):
         defaults.update(kwargs)
         return super(StringField, self).formfield(**defaults)
 
-    def db_type(self, connection):
-        if connection.vendor == 'postgresql':
+    def db_type(self, connection=None):
+        if connection is None:
+            # Django 1.1 doesn't have connection
+            from django.conf import settings
+            vendor = settings.DATABASE_ENGINE.split('_')[0]
+        else:
+            vendor = connection.vendor
+        if vendor == 'postgresql':
             return 'character varying'
-        if connection.vendor == 'mysql':
+        if vendor == 'mysql':
             return 'VARCHAR (65528)'
-        if connection.vendor == 'oracle':
+        if vendor == 'oracle':
             return 'VARCHAR2 (4000)'
         return 'TEXT'
 
