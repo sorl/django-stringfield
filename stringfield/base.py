@@ -30,7 +30,11 @@ class StringField(models.Field):
         if connection is None:
             # Django < 1.2 doesn't have connection
             from django.conf import settings
-            vendor = settings.DATABASE_ENGINE.split('.')[-1].split('_')[0]
+            name = settings.DATABASE_ENGINE.split('.')[-1].split('_')[0]
+            if name == 'postgis':
+                vendor = 'postgresql'
+            else:
+                vendor = name
         else:
             vendor = connection.vendor
         if vendor == 'postgresql':
