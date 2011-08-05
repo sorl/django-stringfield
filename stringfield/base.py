@@ -28,9 +28,9 @@ class StringField(models.Field):
 
     def db_type(self, connection=None):
         if connection is None:
-            # Django 1.1 doesn't have connection
+            # Django < 1.2 doesn't have connection
             from django.conf import settings
-            vendor = settings.DATABASE_ENGINE.split('_')[0]
+            vendor = settings.DATABASE_ENGINE.split('.')[-1].split('_')[0]
         else:
             vendor = connection.vendor
         if vendor == 'postgresql':
