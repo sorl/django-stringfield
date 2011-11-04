@@ -27,16 +27,15 @@ class StringField(models.Field):
         return super(StringField, self).formfield(**defaults)
 
     def db_type(self, connection=None):
-        if connection is None:
-            # Django < 1.2 doesn't have connection
+        if connection and hasattr(connection, 'vendor'):
+            vendor = connection.vendor
+        else:
             from django.conf import settings
             name = settings.DATABASE_ENGINE.split('.')[-1].split('_')[0]
             if name == 'postgis':
                 vendor = 'postgresql'
             else:
                 vendor = name
-        else:
-            vendor = connection.vendor
         if vendor == 'postgresql':
             return 'character varying'
         if vendor == 'mysql':
