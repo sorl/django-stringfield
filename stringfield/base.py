@@ -29,21 +29,22 @@ class StringField(models.Field):
         return super(StringField, self).formfield(**defaults)
 
     def db_type(self, connection=None):
-        if connection is None:
-            # Django < 1.2 doesn't have connection
-            from django.conf import settings
-            name = settings.DATABASE_ENGINE.split('.')[-1].split('_')[0]
-            if name == 'postgis':
-                vendor = 'postgresql'
+        if connection:
+            if hasattr(connection, 'vendor'):
+                engine = connection.vendor
             else:
-                vendor = name
+                engine = connection.__class__.__module__
         else:
-            vendor = connection.vendor
-        if vendor == 'postgresql':
+            from django.conf import settings
+            if hasattr(settings, 'DATABASES'):
+                engine = settings.DATABASES['default']['ENGINE']
+            else:
+                engine = settings.DATABASE_ENGINE
+        if 'postgresql' in engine or 'postgis' in engine:
             return 'character varying'
-        if vendor == 'mysql':
+        if 'mysql' in engine:
             return 'VARCHAR (65528)'
-        if vendor == 'oracle':
+        if 'oracle' in engine:
             return 'VARCHAR2 (4000)'
         return 'TEXT'
 
