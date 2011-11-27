@@ -9,8 +9,7 @@ from os.path import abspath, dirname, join as pjoin
 def runtests(test_labels=None, verbosity=1, interactive=True, failfast=True):
     here = abspath(dirname(__file__))
     root = pjoin(here, os.pardir)
-    sys.path.append(root)
-    sys.path.append(here)
+    sys.path[0:0] = [root, here]
     labels = ['stringfield', 'stringfield_tests']
     test_labels = test_labels or labels
     if not settings.configured:
